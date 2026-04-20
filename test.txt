@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 
 книга по git: https://git-scm.com/book/en/v6/
+=======
+книга по git:\n https://git-scm.com/book/ru/v2/
+>>>>>>> parent of 2e05fba (url test.txt changed)
