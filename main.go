@@ -6,33 +6,33 @@ import (
 	"time"
 )
 
-type NameGenerator struct {
-	prefixes []string
-	suffixes []string
+type Generator struct {
+	ft []string
+	lt []string
 	used     map[string]bool
 }
 
-func NewNameGenerator() *NameGenerator {
-	return &NameGenerator{
-		prefixes: []string{"Swift", "Brave", "Calm", "Dark", "Echo", "Fierce", "Gentle", "Holy"},
-		suffixes: []string{"Wolf", "Fox", "Bear", "Hawk", "Lion", "Tiger", "Falcon", "Raven"},
+func gen() *Generator {
+	return &Generator{
+		ft: []string{"James", "John", "Robert", "Michael", "William", "David", "Richard", "Thomas"},
+		lt:  []string{"Smith", "Johnson", "Brown", "Jones", "Garcia", "Miller", "Davis", "Wilson"},
 		used:     make(map[string]bool, 20),
 	}
 }
 
-func (ng *NameGenerator) generateOne() string {
-	idx1 := rand.Intn(len(ng.prefixes))
-	idx2 := rand.Intn(len(ng.suffixes))
-	return ng.prefixes[idx1] + ng.suffixes[idx2]
+func (ng *Generator) gen_names() string {
+	idx1 := rand.Intn(len(ng.ft))
+	idx2 := rand.Intn(len(ng.lt))
+	return ng.ft[idx1] + " " + ng.lt[idx2]
 }
 
-func (ng *NameGenerator) GenerateUnique(count int) []string {
+func (ng *Generator) unique(count int) []string {
 	defer fmt.Println("Genetaion complite") 
 	
 	names := make([]string, 0, count) 
 	
 	for len(names) < count {
-		candidate := ng.generateOne()
+		candidate := ng.gen_names()
 		if !ng.used[candidate] {
 			ng.used[candidate] = true
 			names = append(names, candidate)
@@ -41,17 +41,17 @@ func (ng *NameGenerator) GenerateUnique(count int) []string {
 	return names
 }
 
-func printNames(names []string, prefix string) {
+func print_all(names []string) {
 	for i, name := range names {
-		fmt.Printf("%s [%d] %s\n", prefix, i+1, name)
+		fmt.Printf("%d - %s\n",i+1, name)
 	}
 }
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	
-	gen := NewNameGenerator()
+	gen := gen()
 	
-	uniqueNames := gen.GenerateUnique(10)
-	printNames(uniqueNames, ".")
+	uniqueNames := gen.unique(10)
+	print_all(uniqueNames)
 }
