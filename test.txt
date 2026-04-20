@@ -1,1 +1,1 @@
-книга по git:\n https://git-scm.com/book/ru/v2/
+книга по git: https://git-scm.com/book/en/v4/
